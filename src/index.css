@@ -3,3 +3,11 @@
 body {
   background-color: #f8f6f1;
 }
+
+.navbtn:hover {
+  background-color: #f2eeeb;
+}
+
+.timeinput:hover {
+  cursor: pointer;
+}

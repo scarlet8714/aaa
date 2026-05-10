@@ -1,6 +1,6 @@
 // core styles are required for all packages
 import "@mantine/core/styles.css";
-
+import "@mantine/dates/styles.css";
 // other css files are required only if
 // you are using components from the corresponding package
 // import '@mantine/dates/styles.css';
@@ -9,7 +9,7 @@ import "@mantine/core/styles.css";
 // ...
 
 import { createTheme, MantineProvider } from "@mantine/core";
-import { Routes, Route, Link, HashRouter } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import { Login } from "./pages/Login";
 import Container from "./components/Container";
@@ -25,11 +25,11 @@ export default function App() {
       <HashRouter>
         <Container>
           {/* <div className="flex justify-center"> */}
-          <nav className="absolute bottom-0">
+          {/* <nav className="absolute bottom-0">
             <Link to="/">首頁</Link>
             <Link to="/login">登入</Link>
             <Link to="/createaccount">建立帳號</Link>
-          </nav>
+          </nav> */}
 
           <Routes>
             <Route path="/" element={<Home />} />
