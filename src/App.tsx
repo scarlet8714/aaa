@@ -1,12 +1,5 @@
-// core styles are required for all packages
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
-// other css files are required only if
-// you are using components from the corresponding package
-// import '@mantine/dates/styles.css';
-// import '@mantine/dropzone/styles.css';
-// import '@mantine/code-highlight/styles.css';
-// ...
 
 import { createTheme, MantineProvider } from "@mantine/core";
 import { Routes, Route, HashRouter } from "react-router-dom";
@@ -24,22 +17,13 @@ export default function App() {
     <MantineProvider theme={theme}>
       <HashRouter>
         <Container>
-          {/* <div className="flex justify-center"> */}
-          {/* <nav className="absolute bottom-0">
-            <Link to="/">首頁</Link>
-            <Link to="/login">登入</Link>
-            <Link to="/createaccount">建立帳號</Link>
-          </nav> */}
-
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/createaccount" element={<CreateAccount />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<CreateAccount />} />
-            {/* 捕捉所有未定義路徑 */}
           </Routes>
-          {/* </div> */}
         </Container>
       </HashRouter>
     </MantineProvider>
