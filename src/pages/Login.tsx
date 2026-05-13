@@ -4,14 +4,62 @@ import LoginContainer from "../components/LoginContainer";
 import { Link } from "react-router-dom";
 
 export function Login() {
+  const loginFunc = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
+    try {
+      // 1. 準備資料
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("password", password);
+
+      // 2. 發送請求
+      const response = await fetch(
+        "http://wwweb2026.csie.io:51010/hw3_614410164/backend/login.php",
+        {
+          method: "POST",
+          body: formData,
+          // 關鍵：這行沒加的話，後端 session_start() 每次都會給你新的 ID，導致登入無效
+          credentials: "include",
+        },
+      );
+
+      // 3. 解析 JSON 回應
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        console.log("登入成功！", result.user);
+        alert("歡迎回來：" + result.user.username);
+
+        // 可以選擇把資料存在 localStorage 方便前端顯示，但認證還是要靠 Session
+        localStorage.setItem("user_info", JSON.stringify(result.user));
+
+        // 跳轉頁面
+        // window.location.href = 'dashboard.html';
+      } else {
+        // 這裡會抓到你 PHP throw new Exception 的內容
+        alert("登入失敗：" + (result.error || "未知錯誤"));
+      }
+    } catch (error) {
+      console.error("網路錯誤或後端當機：", error);
+    }
+  };
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
       email: "",
+      password: "",
     },
 
     validate: {
-      email: (value) => (/^\S+@\S+.com\S*$/.test(value) ? null : "Invalid email"),
+      email: (value) =>
+        /^\S+@\S+.com\S*$/.test(value) ? null : "Invalid email",
+      password: (value) =>
+        /^[a-zA-Z0-9]{8,}$/.test(value) ? null : "Invalid password",
     },
   });
 
@@ -26,7 +74,12 @@ export function Login() {
       <div className="text-center text-3xl font-medium my-6 text-[#4d3c2d]">
         Member Login
       </div>
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form
+        onSubmit={form.onSubmit((values) => {
+          console.log(values);
+          loginFunc(values);
+        })}
+      >
         <TextInput
           size="md"
           label="Email"

@@ -1,7 +1,7 @@
 import { Button, FileInput, PasswordInput, TextInput } from "@mantine/core";
 import LoginContainer from "../components/LoginContainer";
 import { useForm } from "@mantine/form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 interface registerForm {
@@ -15,11 +15,14 @@ interface registerForm {
 export default function CreateAccount() {
   const [errMsg, setErrMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   async function register(values: registerForm) {
     setIsLoading(true);
+    setErrMsg("");
     if (values.password !== values.cpassword) {
       setErrMsg("Password do not match");
+      setIsLoading(false);
       return;
     }
     const formData = new FormData();
@@ -59,6 +62,7 @@ export default function CreateAccount() {
       const result = await response.json();
       alert("註冊成功！");
       console.log(result);
+      navigate("/login");
       // 例如：window.location.href = '/login';
     } catch (err: any) {
       // 這裡會捕捉到 PHP throw 出來的 Exception 訊息
@@ -81,35 +85,35 @@ export default function CreateAccount() {
     },
 
     validate: {
-      // username: (value) =>
-      //   value === "" ? "Required field cannot be empty" : null,
-      // email: (value) => {
-      //   if (value === "") {
-      //     return "Required field cannot be empty";
-      //   } else if (!/^\S+@\S+.com\S*$/.test(value)) {
-      //     return "Invalid email";
-      //   } else {
-      //     return null;
-      //   }
-      // },
-      // password: (value) => {
-      //   if (value === "") {
-      //     return "Required field cannot be empty";
-      //   } else if (!/^[a-zA-Z0-9]{8,}$/.test(value)) {
-      //     return "Invalid password";
-      //   } else {
-      //     return null;
-      //   }
-      // },
-      // cpassword: (value) => {
-      //   if (value === "") {
-      //     return "Required field cannot be empty";
-      //   } else if (!/^[a-zA-Z0-9]{8,}$/.test(value)) {
-      //     return "Invalid password";
-      //   } else {
-      //     return null;
-      //   }
-      // },
+      username: (value) =>
+        value === "" ? "Required field cannot be empty" : null,
+      email: (value) => {
+        if (value === "") {
+          return "Required field cannot be empty";
+        } else if (!/^\S+@\S+.com\S*$/.test(value)) {
+          return "Invalid email";
+        } else {
+          return null;
+        }
+      },
+      password: (value) => {
+        if (value === "") {
+          return "Required field cannot be empty";
+        } else if (!/^[a-zA-Z0-9]{8,}$/.test(value)) {
+          return "Invalid password";
+        } else {
+          return null;
+        }
+      },
+      cpassword: (value) => {
+        if (value === "") {
+          return "Required field cannot be empty";
+        } else if (!/^[a-zA-Z0-9]{8,}$/.test(value)) {
+          return "Invalid password";
+        } else {
+          return null;
+        }
+      },
     },
   });
   return (
