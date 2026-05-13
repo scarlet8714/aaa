@@ -34,7 +34,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/createaccount" element={<CreateAccount />} />{" "}
+            <Route path="/createaccount" element={<CreateAccount />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<CreateAccount />} />
             {/* 捕捉所有未定義路徑 */}
           </Routes>
           {/* </div> */}

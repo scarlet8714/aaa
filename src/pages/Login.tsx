@@ -8,7 +8,6 @@ export function Login() {
     mode: "uncontrolled",
     initialValues: {
       email: "",
-      termsOfService: false,
     },
 
     validate: {
@@ -55,9 +54,9 @@ export function Login() {
         </Button>
         <div className="text-[#4d3c2d] text-center mb-2">
           No Account ?{" "}
-          <a href="" className="text-[#8e735b]">
+          <Link to="/register" className="text-[#8e735b]">
             Register Now
-          </a>
+          </Link>
         </div>
       </form>
     </LoginContainer>

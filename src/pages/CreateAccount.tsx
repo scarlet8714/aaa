@@ -4,6 +4,9 @@ import { useForm } from "@mantine/form";
 import { Link } from "react-router-dom";
 
 export default function CreateAccount() {
+  // async function register(){
+
+  // }
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -73,15 +76,17 @@ export default function CreateAccount() {
           label="Upload Avatar"
           description="Supported: JPG JPEG PNG GIF"
           placeholder="No File Chosen (This is optional)"
+          accept="image/png,image/jpeg,image/jpg,image/gif"
+          {...form.getInputProps("avatar")}
         />
         <Button type="submit" fullWidth color="#8e735b" h={50} className="mb-4">
           Sign Up
         </Button>
         <div className="text-[#4d3c2d] text-center mb-2">
           Have an account ?{" "}
-          <a href="" className="text-[#8e735b]">
+          <Link to="/login" className="text-[#8e735b]">
             Login Here
-          </a>
+          </Link>
         </div>
       </form>
     </LoginContainer>

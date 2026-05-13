@@ -1,4 +1,5 @@
 import { Button, Text } from "@mantine/core";
+import { Link } from "react-router-dom";
 
 export default function NavBar() {
   return (
@@ -39,7 +40,7 @@ export default function NavBar() {
         gradient={{ from: "#a0876d", to: "#d8ccbc", deg: 90 }}
         w={200}
       >
-        Login / Register
+        <Link to={"/login"}>Login / Register</Link>
       </Button>
     </div>
   );
