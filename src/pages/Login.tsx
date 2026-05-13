@@ -1,9 +1,11 @@
 import { Button, PasswordInput, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import LoginContainer from "../components/LoginContainer";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCallback } from "react";
 
 export function Login() {
+  const navigate = useNavigate();
   const loginFunc = async ({
     email,
     password,
@@ -37,13 +39,14 @@ export function Login() {
 
         // 可以選擇把資料存在 localStorage 方便前端顯示，但認證還是要靠 Session
         localStorage.setItem("user_info", JSON.stringify(result.user));
-
+        navigate("/");
         // 跳轉頁面
         // window.location.href = 'dashboard.html';
-      } else {
-        // 這裡會抓到你 PHP throw new Exception 的內容
-        alert("登入失敗：" + (result.error || "未知錯誤"));
       }
+      // else {
+      //   // 這裡會抓到你 PHP throw new Exception 的內容
+      //   alert("登入失敗：" + (result.error || "未知錯誤"));
+      // }
     } catch (error) {
       console.error("網路錯誤或後端當機：", error);
     }

@@ -87,7 +87,7 @@ export default function CreateAccount() {
     validate: {
       username: (value) =>
         value === "" ? "Required field cannot be empty" : null,
-      email: (value) => {
+      email: (value: string) => {
         if (value === "") {
           return "Required field cannot be empty";
         } else if (!/^\S+@\S+.com\S*$/.test(value)) {

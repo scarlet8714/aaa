@@ -1,7 +1,61 @@
 import { Button, Text } from "@mantine/core";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function NavBar() {
+  // const navigate = useNavigate();
+  const [role, setRole] = useState(() => {
+    const userInfo = localStorage.getItem("user_info");
+    let userInfoObj;
+    if (userInfo) {
+      userInfoObj = JSON.parse(userInfo);
+    }
+    if (userInfoObj.role && userInfoObj.role === "admin") {
+      return "admin";
+    } else if (userInfoObj.role && userInfoObj.role === "user") {
+      return "user";
+    } else {
+      return "";
+    }
+  });
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const currentRole = localStorage.getItem("userinfo") || "";
+      setRole(currentRole);
+    };
+
+    // 監聽來自其他標籤頁的 localStorage 變動
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(
+        "http://wwweb2026.csie.io:51010/hw3_614410164/backend/logout.php",
+        {
+          method: "POST", // 或者 GET，看你後端怎麼寫
+          credentials: "include", // 關鍵：要把 Cookie 帶過去，後端才知道要刪除哪個 Session
+        },
+      );
+
+      const result = await response.json();
+
+      if (result.success) {
+        // 1. 清除前端所有的使用者快取
+        localStorage.removeItem("user_info");
+        // 如果你有存 token 或其他東西也一併清除
+        // localStorage.clear();
+
+        alert("您已登出");
+        setRole("");
+        // 2. 跳轉回登入頁面或首頁
+        // window.location.href = 'login.html';
+      }
+    } catch (error) {
+      console.error("登出失敗：", error);
+    }
+  };
   return (
     <div className="h-18 bg-[#fdfdfd] w-full shadow-lg px-20 flex items-center justify-between">
       <div className="flex">
@@ -26,22 +80,44 @@ export default function NavBar() {
         >
           <span className="text-[#4d3c2d]">🏠 Home</span>
         </Button>
-        <Button
-          color="#dcdcd7"
-          radius={50}
-          variant="outline"
-          classNames={{ root: "navbtn" }}
-        >
-          <span className="text-[#4d3c2d]"> 🧟‍♂️ User Page</span>
-        </Button>
+        {role === "admin" ? (
+          <Button
+            color="#dcdcd7"
+            radius={50}
+            variant="outline"
+            classNames={{ root: "navbtn" }}
+          >
+            <span className="text-[#4d3c2d]"> ⚙️Admin Panel</span>
+          </Button>
+        ) : (
+          <Button
+            color="#dcdcd7"
+            radius={50}
+            variant="outline"
+            classNames={{ root: "navbtn" }}
+          >
+            <span className="text-[#4d3c2d]"> 🧟‍♂️ User Page</span>
+          </Button>
+        )}
       </div>
-      <Button
-        variant="gradient"
-        gradient={{ from: "#a0876d", to: "#d8ccbc", deg: 90 }}
-        w={200}
-      >
-        <Link to={"/login"}>Login / Register</Link>
-      </Button>
+      {role === "" ? (
+        <Button
+          variant="gradient"
+          gradient={{ from: "#a0876d", to: "#d8ccbc", deg: 90 }}
+          w={200}
+        >
+          <Link to={"/login"}>Login / Register</Link>
+        </Button>
+      ) : (
+        <Button
+          variant="outline"
+          color="#4d3c2d"
+          w={200}
+          onClick={handleLogout}
+        >
+          Logout
+        </Button>
+      )}
     </div>
   );
 }
