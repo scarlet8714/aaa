@@ -2,10 +2,13 @@ import { Button, Select, TextInput } from "@mantine/core";
 import NavBar from "../components/NavBar";
 import { DateInput, TimeInput } from "@mantine/dates";
 import ResourceCard from "../components/ResourceCard";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const [resources, setResources] = useState([]);
+  const timeRef1 = useRef<HTMLInputElement>(null);
+  const timeRef2 = useRef<HTMLInputElement>(null);
+
   // 執行測試
   useEffect(() => {
     fetch(
@@ -22,49 +25,79 @@ export default function Home() {
     console.log(resources);
   }, [resources]);
   return (
-    <div className="w-full">
-      <NavBar />
+    <>
       <div className="mx-20 my-10 p-5  bg-white border border-[#e6e5e3] rounded-lg shadow-lg">
         <div className=" flex gap-5 mb-5">
+          <Select
+            label="Category"
+            defaultValue={"All"}
+            placeholder="Pick value"
+            data={["All", "Space", "3C Device", "Books"]}
+            className="flex-1"
+          />
           <DateInput
             valueFormat="YYYY MMM DD"
-            label="Date input"
-            placeholder="Date input"
-            // classNames={{ wrapper: "flex-2" }}
+            label="Date"
+            placeholder="Date"
             className="flex-2"
           />
-          <Select
-            label="Your favorite library"
-            placeholder="Pick value"
-            data={["React", "Angular", "Vue", "Svelte"]}
-            className="flex-2"
+          <TimeInput
+            label="Input label"
+            className="flex-1"
+            classNames={{ input: "timeinput", section: "timeinput" }}
+            rightSection={"🕑"}
+            rightSectionProps={{
+              onClick: () => timeRef1.current?.showPicker(),
+            }}
+            ref={timeRef1}
+            onClick={() => timeRef1.current?.showPicker()}
           />
-          <TimeInput label="Input label" className="flex-1" />
-          <TimeInput label="Input label" className="flex-1" />
+          <TimeInput
+            label="Input label"
+            className="flex-1"
+            classNames={{ input: "timeinput", section: "timeinput" }}
+            rightSection={"🕑"}
+            rightSectionProps={{
+              onClick: () => timeRef2.current?.showPicker(),
+            }}
+            onChange={(e) => console.log(e.currentTarget.value)}
+            ref={timeRef2}
+            onClick={() => timeRef2.current?.showPicker()}
+          />
           <Select
-            label="Your favorite library"
+            label="Reservation Status"
             placeholder="Pick value"
-            data={["React", "Angular", "Vue", "Svelte"]}
+            defaultValue={"All"}
+            data={[
+              "All",
+              "Available(not reserved)",
+              "Reserved(not started)",
+              "In Use",
+            ]}
             className="flex-1"
           />
         </div>
         <div className="flex justify-between gap-5">
           <TextInput
-            label="Input label"
-            placeholder="Input placeholder"
+            label="Keyword (name/location/description)"
+            placeholder="e.g.projector, meeting room library"
             className="flex-5"
           />
           <div className="flex items-end flex-2 gap-5">
-            <Button className="flex-1">1</Button>
-            <Button className="flex-1">2</Button>
+            <Button className="flex-1" variant="filled" color="#8e735b">
+              Reset
+            </Button>
+            <Button className="flex-1" variant="outline" color="#8e735b">
+              Apply
+            </Button>
           </div>
         </div>
       </div>
-      <div className="mx-20 my-10 p-5  bg-white border border-[#e6e5e3] rounded-lg shadow-lg grid grid-cols-3">
+      <div className="mx-20 my-10 p-5  bg-white border border-[#e6e5e3] rounded-lg shadow-lg grid grid-cols-3 gap-5">
         {Array.from({ length: 10 }).map((_, index) => (
           <ResourceCard key={index} />
         ))}
       </div>
-    </div>
+    </>
   );
 }

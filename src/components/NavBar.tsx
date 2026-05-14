@@ -1,6 +1,7 @@
 import { Button, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import UserPageDropdown from "./UserPageDropdown";
 
 export default function NavBar() {
   // const navigate = useNavigate();
@@ -10,10 +11,12 @@ export default function NavBar() {
     if (userInfo) {
       userInfoObj = JSON.parse(userInfo);
     }
-    if (userInfoObj.role && userInfoObj.role === "admin") {
-      return "admin";
-    } else if (userInfoObj.role && userInfoObj.role === "user") {
-      return "user";
+    if (userInfoObj) {
+      if (userInfoObj.role === "admin") {
+        return "admin";
+      } else if (userInfoObj.role === "user") {
+        return "user";
+      }
     } else {
       return "";
     }
@@ -80,25 +83,7 @@ export default function NavBar() {
         >
           <span className="text-[#4d3c2d]">🏠 Home</span>
         </Button>
-        {role === "admin" ? (
-          <Button
-            color="#dcdcd7"
-            radius={50}
-            variant="outline"
-            classNames={{ root: "navbtn" }}
-          >
-            <span className="text-[#4d3c2d]"> ⚙️Admin Panel</span>
-          </Button>
-        ) : (
-          <Button
-            color="#dcdcd7"
-            radius={50}
-            variant="outline"
-            classNames={{ root: "navbtn" }}
-          >
-            <span className="text-[#4d3c2d]"> 🧟‍♂️ User Page</span>
-          </Button>
-        )}
+        {role === "admin" ? <UserPageDropdown /> : <UserPageDropdown />}
       </div>
       {role === "" ? (
         <Button
