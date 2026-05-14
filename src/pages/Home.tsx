@@ -10,9 +10,7 @@ export default function Home() {
 
   // 執行測試
   useEffect(() => {
-    fetch(
-      "http://wwweb2026.csie.io:51010/hw3_614410164/backend/get_resource.php",
-    )
+    fetch("/hw3_614410164/backend/get_resource.php")
       .then((res) => res.json())
       .then((res) => {
         if (res.success) setResources(res.data);

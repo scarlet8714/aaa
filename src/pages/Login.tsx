@@ -2,7 +2,6 @@ import { Button, PasswordInput, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import LoginContainer from "../components/LoginContainer";
 import { Link, useNavigate } from "react-router-dom";
-import { useCallback } from "react";
 
 export function Login() {
   const navigate = useNavigate();
@@ -20,15 +19,12 @@ export function Login() {
       formData.append("password", password);
 
       // 2. 發送請求
-      const response = await fetch(
-        "http://wwweb2026.csie.io:51010/hw3_614410164/backend/login.php",
-        {
-          method: "POST",
-          body: formData,
-          // 關鍵：這行沒加的話，後端 session_start() 每次都會給你新的 ID，導致登入無效
-          credentials: "include",
-        },
-      );
+      const response = await fetch("/hw3_614410164/backend/login.php", {
+        method: "POST",
+        body: formData,
+        // 關鍵：這行沒加的話，後端 session_start() 每次都會給你新的 ID，導致登入無效
+        credentials: "include",
+      });
 
       // 3. 解析 JSON 回應
       const result = await response.json();

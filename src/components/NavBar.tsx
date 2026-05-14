@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import UserPageDropdown from "./UserPageDropdown";
 
 export default function NavBar() {
-  // const navigate = useNavigate();
   const [role, setRole] = useState(() => {
     const userInfo = localStorage.getItem("user_info");
     let userInfoObj;
@@ -34,13 +33,10 @@ export default function NavBar() {
   }, []);
   const handleLogout = async () => {
     try {
-      const response = await fetch(
-        "http://wwweb2026.csie.io:51010/hw3_614410164/backend/logout.php",
-        {
-          method: "POST", // 或者 GET，看你後端怎麼寫
-          credentials: "include", // 關鍵：要把 Cookie 帶過去，後端才知道要刪除哪個 Session
-        },
-      );
+      const response = await fetch("/hw3_614410164/backend/logout.php", {
+        method: "POST", // 或者 GET，看你後端怎麼寫
+        credentials: "include", // 關鍵：要把 Cookie 帶過去，後端才知道要刪除哪個 Session
+      });
 
       const result = await response.json();
 

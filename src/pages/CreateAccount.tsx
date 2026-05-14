@@ -40,15 +40,12 @@ export default function CreateAccount() {
 
     try {
       // 4. 發送請求
-      const response = await fetch(
-        "http://wwweb2026.csie.io:51010/hw3_614410164/backend/register.php",
-        {
-          method: "POST",
-          // 注意：使用 FormData 時，絕對「不要」手動設定 Content-Type header
-          // 瀏覽器會自動幫你加上 multipart/form-data 並包含正確的 boundary
-          body: formData,
-        },
-      );
+      const response = await fetch("/hw3_614410164/backend/register.php", {
+        method: "POST",
+        // 注意：使用 FormData 時，絕對「不要」手動設定 Content-Type header
+        // 瀏覽器會自動幫你加上 multipart/form-data 並包含正確的 boundary
+        body: formData,
+      });
 
       // 5. 處理後端丟出的錯誤 (http_response_code 400)
       if (!response.ok) {
