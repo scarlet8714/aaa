@@ -1,5 +1,4 @@
 import { Button, Select, TextInput } from "@mantine/core";
-import NavBar from "../components/NavBar";
 import { DateInput, TimeInput } from "@mantine/dates";
 import ResourceCard from "../components/ResourceCard";
 import { useEffect, useRef, useState } from "react";
@@ -19,7 +18,6 @@ export default function Home() {
         if (res.success) setResources(res.data);
       })
       .catch((err) => console.error(err));
-    console.log(resources);
   }, []);
   useEffect(() => {
     console.log(resources);
