@@ -77,7 +77,9 @@ export default function NavBar() {
           variant="outline"
           classNames={{ root: "navbtn" }}
         >
-          <span className="text-[#4d3c2d]">🏠 Home</span>
+          <Link to={"/"} className="text-[#4d3c2d]">
+            🏠 Home
+          </Link>
         </Button>
         {role === "admin" ? <UserPageDropdown /> : <UserPageDropdown />}
       </div>

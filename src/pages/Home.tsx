@@ -5,6 +5,9 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const [resources, setResources] = useState([]);
+  const [day, setDay] = useState<string | null>(null);
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
   const timeRef1 = useRef<HTMLInputElement>(null);
   const timeRef2 = useRef<HTMLInputElement>(null);
 
@@ -18,8 +21,10 @@ export default function Home() {
       .catch((err) => console.error(err));
   }, []);
   useEffect(() => {
-    console.log(resources);
-  }, [resources]);
+    console.log("day", day);
+    console.log("start", start);
+    console.log("end", end);
+  }, [day, start, end]);
   return (
     <>
       <div className="mx-20 my-10 p-5  bg-white border border-[#e6e5e3] rounded-lg shadow-lg">
@@ -34,8 +39,10 @@ export default function Home() {
           <DateInput
             valueFormat="YYYY MMM DD"
             label="Date"
+            value={day}
             placeholder="Date"
             className="flex-2"
+            onChange={setDay}
           />
           <TimeInput
             label="Input label"
@@ -47,6 +54,7 @@ export default function Home() {
             }}
             ref={timeRef1}
             onClick={() => timeRef1.current?.showPicker()}
+            onChange={(e) => setStart(e.currentTarget.value)}
           />
           <TimeInput
             label="Input label"
@@ -56,7 +64,7 @@ export default function Home() {
             rightSectionProps={{
               onClick: () => timeRef2.current?.showPicker(),
             }}
-            onChange={(e) => console.log(e.currentTarget.value)}
+            onChange={(e) => setEnd(e.currentTarget.value)}
             ref={timeRef2}
             onClick={() => timeRef2.current?.showPicker()}
           />
