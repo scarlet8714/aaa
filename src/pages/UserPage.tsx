@@ -1,4 +1,3 @@
-import { Button } from "@mantine/core";
 import { useEffect, useState } from "react";
 import EditProfile from "../components/EditProfile";
 const fetchMyPrivateData = async (

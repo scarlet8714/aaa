@@ -49,7 +49,6 @@ export default function NavBar() {
         alert("您已登出");
         setRole("");
         // 2. 跳轉回登入頁面或首頁
-        // window.location.href = 'login.html';
       }
     } catch (error) {
       console.error("登出失敗：", error);

@@ -2,9 +2,11 @@ import { Button, PasswordInput, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import LoginContainer from "../components/LoginContainer";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export function Login() {
   const navigate = useNavigate();
+  const [errMsg, setErrMsg] = useState("");
   const loginFunc = async ({
     email,
     password,
@@ -37,12 +39,10 @@ export function Login() {
         localStorage.setItem("user_info", JSON.stringify(result.user));
         navigate("/");
         // 跳轉頁面
-        // window.location.href = 'dashboard.html';
+      } else {
+        // 這裡會抓到你 PHP throw new Exception 的內容
+        setErrMsg("登入失敗：" + (result.error || "未知錯誤"));
       }
-      // else {
-      //   // 這裡會抓到你 PHP throw new Exception 的內容
-      //   alert("登入失敗：" + (result.error || "未知錯誤"));
-      // }
     } catch (error) {
       console.error("網路錯誤或後端當機：", error);
     }
@@ -100,7 +100,7 @@ export function Login() {
           key={form.key("password")}
           {...form.getInputProps("password")}
         />
-
+        <span className="text-red-500">{errMsg}</span>
         <Button type="submit" fullWidth color="#8e735b" h={50} className="mb-4">
           Sign In
         </Button>

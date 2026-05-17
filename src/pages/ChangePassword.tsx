@@ -1,4 +1,4 @@
-import { Button, TextInput } from "@mantine/core";
+import { Button, PasswordInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 export default function ChangePassword() {
@@ -74,44 +74,43 @@ export default function ChangePassword() {
     }
   };
   return (
-    <div>
+    <div className="mx-50 p-10">
       <form
         onSubmit={form.onSubmit((values) =>
           handleUpdatePassword(values.oldpassword, values.newpassword),
         )}
       >
-        <TextInput
+        <PasswordInput
           size="md"
-          label="Username"
-          placeholder="Set your display name"
-          key={form.key("username")}
+          label="Old Password"
+          placeholder="Enter your old password"
+          key={form.key("oldpassword")}
           labelProps={{ className: "text-[#8e735b]" }}
           className="mb-4"
           inputSize="35"
-          {...form.getInputProps("username")}
+          {...form.getInputProps("oldpassword")}
         />
-        <TextInput
+        <PasswordInput
           size="md"
-          label="Email Address"
-          placeholder="Enter your email"
-          key={form.key("email")}
+          label="New Password"
+          placeholder="Enter your new password"
+          key={form.key("newpassword")}
           labelProps={{ className: "text-[#8e735b]" }}
           className="mb-4"
           inputSize="35"
-          {...form.getInputProps("email")}
+          {...form.getInputProps("newpassword")}
         />
-        <TextInput
+        <PasswordInput
           size="md"
-          label="Email Address"
-          placeholder="Enter your email"
-          key={form.key("email")}
+          label="Confirm Password"
+          placeholder="Confirm your new password"
+          key={form.key("cpassword")}
           labelProps={{ className: "text-[#8e735b]" }}
           className="mb-4"
           inputSize="35"
-          {...form.getInputProps("email")}
+          {...form.getInputProps("cpassword")}
         />
         {/* <span className="text-red-500">{errMsg}&nbsp;</span> */}
-
         <Button
           type="submit"
           fullWidth
