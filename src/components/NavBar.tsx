@@ -2,6 +2,7 @@ import { Button, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import UserPageDropdown from "./UserPageDropdown";
+import AdminPanelDropdown from "./AdminPanelDropdown";
 
 export default function NavBar() {
   const [role, setRole] = useState(() => {
@@ -80,7 +81,7 @@ export default function NavBar() {
             🏠 Home
           </Link>
         </Button>
-        {role === "admin" ? <UserPageDropdown /> : <UserPageDropdown />}
+        {role === "admin" ? <AdminPanelDropdown /> : <UserPageDropdown />}
       </div>
       {role === "" ? (
         <Button

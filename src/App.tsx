@@ -12,6 +12,8 @@ import { Notifications } from "@mantine/notifications";
 import Layout from "./pages/Layout";
 import UserPage from "./pages/UserPage";
 import ChangePassword from "./pages/ChangePassword";
+import AllBookings from "./pages/AllBookings";
+import AllResources from "./pages/AllResources";
 
 const theme = createTheme({
   /** Put your mantine theme override here */
@@ -27,8 +29,10 @@ export default function App() {
             <Route path="/" element={<Layout />}>
               {/* 以下是子路由，它們會顯示在 Layout 的 Outlet 位置 */}
               <Route index element={<Home />} /> {/* index 代表預設路徑 / */}
-              <Route path="/userinfo" element={<UserPage />} />{" "}
+              <Route path="/userinfo" element={<UserPage />} />
               <Route path="/changepassword" element={<ChangePassword />} />
+              <Route path="/allbookings" element={<AllBookings />} />
+              <Route path="/allresources" element={<AllResources />} />
               {/* index 代表預設路徑 / */}
             </Route>
             {/* <Route path="/" element={<Home />} /> */}

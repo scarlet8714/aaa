@@ -24,7 +24,8 @@ export default function Home() {
     console.log("day", day);
     console.log("start", start);
     console.log("end", end);
-  }, [day, start, end]);
+    console.log("resources", resources);
+  }, [day, start, end, resources]);
   return (
     <>
       <div className="mx-20 my-10 p-5  bg-white border border-[#e6e5e3] rounded-lg shadow-lg">

@@ -46,7 +46,7 @@ export default function ChangePassword() {
   ) => {
     try {
       const response = await fetch(
-        "/hw3_614410164/backend/update_password.php",
+        "/hw3_614410164/backend/change_password.php",
         {
           method: "POST",
           headers: {
@@ -74,7 +74,7 @@ export default function ChangePassword() {
     }
   };
   return (
-    <div className="mx-50 p-10">
+    <div className="mt-20 mx-100 p-10">
       <form
         onSubmit={form.onSubmit((values) =>
           handleUpdatePassword(values.oldpassword, values.newpassword),
