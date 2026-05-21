@@ -1,10 +1,11 @@
 import { Button, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UserPageDropdown from "./UserPageDropdown";
 import AdminPanelDropdown from "./AdminPanelDropdown";
 
 export default function NavBar() {
+  const navigate = useNavigate();
   const [role, setRole] = useState(() => {
     const userInfo = localStorage.getItem("user_info");
     let userInfoObj;
@@ -33,6 +34,10 @@ export default function NavBar() {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
   const handleLogout = async () => {
+    const answer = confirm("確定要登出嗎?");
+    if (!answer) {
+      return;
+    }
     try {
       const response = await fetch("/hw3_614410164/backend/logout.php", {
         method: "POST", // 或者 GET，看你後端怎麼寫
@@ -46,10 +51,9 @@ export default function NavBar() {
         localStorage.removeItem("user_info");
         // 如果你有存 token 或其他東西也一併清除
         // localStorage.clear();
-
-        alert("您已登出");
         setRole("");
         // 2. 跳轉回登入頁面或首頁
+        navigate("/");
       }
     } catch (error) {
       console.error("登出失敗：", error);

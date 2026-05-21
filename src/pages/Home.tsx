@@ -13,7 +13,7 @@ export default function Home() {
 
   // 執行測試
   useEffect(() => {
-    fetch("/hw3_614410164/backend/get_resource.php")
+    fetch("/hw3_614410164/backend/get_resource_detail.php")
       .then((res) => res.json())
       .then((res) => {
         if (res.success) setResources(res.data);
@@ -99,8 +99,16 @@ export default function Home() {
         </div>
       </div>
       <div className="mx-20 my-10 p-5  bg-white border border-[#e6e5e3] rounded-lg shadow-lg grid grid-cols-3 gap-5">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <ResourceCard key={index} />
+        {resources.map((el: any, index) => (
+          <ResourceCard
+            id={el.resource_id}
+            resourceType={el.resource_type}
+            resourceStatus={el.reservation_status}
+            resourceName={el.resource_name}
+            location={el.location}
+            description={el.description}
+            key={index}
+          />
         ))}
       </div>
     </>
