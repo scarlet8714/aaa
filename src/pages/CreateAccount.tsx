@@ -96,7 +96,7 @@ export default function CreateAccount() {
       password: (value) => {
         if (value === "") {
           return "Required field cannot be empty";
-        } else if (!/^[a-zA-Z0-9]{8,}$/.test(value)) {
+        } else if (!/^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{8,}$/.test(value)) {
           return "Invalid password";
         } else {
           return null;

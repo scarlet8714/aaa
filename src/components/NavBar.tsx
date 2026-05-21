@@ -1,17 +1,17 @@
 import { Button, Text } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserPageDropdown from "./UserPageDropdown";
 import AdminPanelDropdown from "./AdminPanelDropdown";
 
 export default function NavBar() {
+  const userInfo = localStorage.getItem("user_info");
+  let userInfoObj: any;
+  if (userInfo) {
+    userInfoObj = JSON.parse(userInfo);
+  }
   const navigate = useNavigate();
   const [role, setRole] = useState(() => {
-    const userInfo = localStorage.getItem("user_info");
-    let userInfoObj;
-    if (userInfo) {
-      userInfoObj = JSON.parse(userInfo);
-    }
     if (userInfoObj) {
       if (userInfoObj.role === "admin") {
         return "admin";
@@ -87,6 +87,25 @@ export default function NavBar() {
         </Button>
         {role === "admin" ? <AdminPanelDropdown /> : <UserPageDropdown />}
       </div>
+      {role !== "" && (
+        <div className="flex gap-5 h-max">
+          <div>
+            <div>{userInfoObj && userInfoObj.username}</div>
+            <div>{userInfoObj && userInfoObj.role}</div>
+          </div>
+          <div className="border shadow-xl rounded-full overflow-hidden">
+            <img
+              className="aspect-square w-13"
+              src={
+                userInfoObj && userInfoObj.profile_pic !== ""
+                  ? userInfoObj.profile_pic
+                  : "http://wwweb2026.csie.io:51010/uploads/default.png"
+              }
+              alt=""
+            />
+          </div>
+        </div>
+      )}
       {role === "" ? (
         <Button
           variant="gradient"
@@ -100,7 +119,10 @@ export default function NavBar() {
           variant="outline"
           color="#4d3c2d"
           w={200}
-          onClick={handleLogout}
+          onClick={() => {
+            const answer = confirm("確定要登出?");
+            if (answer) handleLogout();
+          }}
         >
           Logout
         </Button>
