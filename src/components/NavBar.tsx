@@ -1,5 +1,5 @@
 import { Button, Text } from "@mantine/core";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UserPageDropdown from "./UserPageDropdown";
 import AdminPanelDropdown from "./AdminPanelDropdown";
