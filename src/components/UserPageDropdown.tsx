@@ -28,7 +28,9 @@ export default function UserPageDropdown() {
         <Menu.Item color="gray" onClick={() => navigate("/userinfo")}>
           帳戶資訊
         </Menu.Item>
-        <Menu.Item color="gray">我的預約</Menu.Item>
+        <Menu.Item color="gray" onClick={() => navigate("/userbookings")}>
+          我的預約
+        </Menu.Item>
         <Menu.Item color="gray">
           <Link to={"/changepassword"}>修改密碼</Link>
         </Menu.Item>
