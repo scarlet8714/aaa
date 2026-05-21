@@ -15,6 +15,7 @@ import ChangePassword from "./pages/ChangePassword";
 import AllBookings from "./pages/AllBookings";
 import AllResources from "./pages/AllResources";
 import UserBookings from "./pages/UserBookings";
+import DeleteAccount from "./pages/DeleteAccount";
 
 const theme = createTheme({
   /** Put your mantine theme override here */
@@ -35,6 +36,7 @@ export default function App() {
               <Route path="/allbookings" element={<AllBookings />} />
               <Route path="/allresources" element={<AllResources />} />
               <Route path="/userbookings" element={<UserBookings />} />
+              <Route path="/deleteaccount" element={<DeleteAccount />} />
               {/* index 代表預設路徑 / */}
             </Route>
             {/* <Route path="/" element={<Home />} /> */}

@@ -1,0 +1,13 @@
+{
+  "Category": "類別",
+  "Date":"日期",
+  "Start Time":"開始時間",
+  "End Time":"結束時間",
+  "Reservation Status":"預約狀態", 
+  "Keyword (name/location/description)":"關鍵字 (名字/地點/備註)",
+  "Location":"地點",
+  "Reserve":"預約",
+  "Details":"詳細資料",
+  "Reset":"重設",
+  "Apply":"提交"
+}

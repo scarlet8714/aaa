@@ -4,6 +4,7 @@ import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function ResourceCard({
   id = 1,
@@ -16,6 +17,7 @@ export default function ResourceCard({
   const [opened, { open, close }] = useDisclosure(false);
   const timeRef1 = useRef<HTMLInputElement>(null);
   const timeRef2 = useRef<HTMLInputElement>(null);
+  const { t } = useTranslation();
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -79,9 +81,13 @@ export default function ResourceCard({
         {/* resource name */}
         <div className="font-bold text-[#4d3c2d] p-1">{resourceName}</div>
         {/* location */}
-        <div className="p-1">Location: {location}</div>
+        <div className="p-1">
+          {t("Location")}: {location}
+        </div>
         {/* resource type */}
-        <div className="p-1">Category: {resourceType}</div>
+        <div className="p-1">
+          {t("Category")}: {resourceType}
+        </div>
         {/* description */}
         <div className="p-1">{description}</div>
         <div className="flex gap-5">
@@ -91,7 +97,7 @@ export default function ResourceCard({
             color="#8e735b"
             onClick={open}
           >
-            Reserve
+            {t("Reserve")}
           </Button>
           <Button
             className="flex-1"
@@ -105,7 +111,7 @@ export default function ResourceCard({
               })
             }
           >
-            Details
+            {t("Details")}
           </Button>
         </div>
       </div>

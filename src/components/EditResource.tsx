@@ -8,16 +8,18 @@ import {
 } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
 import { hasLength, useForm } from "@mantine/form";
-import { useRef } from "react";
+import React, { useRef } from "react";
 
 export default function EditResource({
   oldValues,
   id,
   close,
+  setRefresh,
 }: {
   oldValues: any;
   id: number;
   close: () => void;
+  setRefresh: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const timeRef1 = useRef<HTMLInputElement>(null);
   const timeRef2 = useRef<HTMLInputElement>(null);
@@ -72,6 +74,8 @@ export default function EditResource({
 
       if (result.success) {
         alert("修改成功！");
+        close();
+        setRefresh((state) => state + 1);
         // 可以在此更新前端的狀態或導向列表頁
       } else {
         alert("修改失敗：" + result.message);

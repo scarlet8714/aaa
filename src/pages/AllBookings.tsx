@@ -42,6 +42,35 @@ export default function AllBookings() {
       alert("網路連線異常");
     }
   };
+  const handleAdminCompleteBooking = async (bookingId: number) => {
+    try {
+      const response = await fetch(
+        "/hw3_614410164/backend/admin_complete_booking.php",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            booking_id: bookingId,
+          }),
+          credentials: "include",
+        },
+      );
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert("預約狀態已更新為已完成！");
+        // 建議：重新呼叫刷新總表的 function (例如 fetchAllBookingsForAdmin())
+      } else {
+        alert("操作失敗：" + result.message);
+      }
+    } catch (error) {
+      console.error("更新預約狀態失敗:", error);
+      alert("網路連線異常");
+    }
+  };
   useEffect(() => {
     const fetchAllBookingsForAdmin = async () => {
       try {
@@ -137,7 +166,14 @@ export default function AllBookings() {
                       >
                         Details
                       </Button>
-                      <Button variant="filled" color="#8e735b">
+                      <Button
+                        variant="filled"
+                        color="#8e735b"
+                        onClick={() => {
+                          handleAdminCompleteBooking(el.booking_id);
+                          setRefresh((state) => state + 1);
+                        }}
+                      >
                         Mark Completed
                       </Button>
                       <Button

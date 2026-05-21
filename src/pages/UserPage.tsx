@@ -50,7 +50,11 @@ export default function UserPage() {
         <div className="flex-1/3 w-full aspect-square overflow-hidden">
           <img
             className="w-full h-full object-center object-cover"
-            src={user.profile_pic}
+            src={
+              user.profile_pic === ""
+                ? "http://wwweb2026.csie.io:51010/uploads/default.png"
+                : user.profile_pic
+            }
           />
         </div>
         <div className="flex-2/3 flex flex-col text-2xl justify-between text-gray-400">

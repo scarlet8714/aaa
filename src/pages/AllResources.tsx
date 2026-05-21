@@ -10,6 +10,7 @@ export default function AllResources() {
   const [opened2, { open: open2, close: close2 }] = useDisclosure(false);
   const [id, setId] = useState<number>(0);
   const [editResource, setEditResource] = useState<any>(null);
+  const [refresh, setRefresh] = useState(0);
   function handleOpenEditModal(el: any) {
     setId(el.resource_id);
     setEditResource(el);
@@ -24,7 +25,7 @@ export default function AllResources() {
         if (res.success) setResources(res.data);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [refresh]);
   useEffect(() => {
     console.log(resources);
   }, [resources]);
@@ -141,10 +142,15 @@ export default function AllResources() {
         </div>
       </div>
       <Modal opened={opened} onClose={close} title="Authentication">
-        <AddResource close={close} />
+        <AddResource close={close} setRefresh={setRefresh} />
       </Modal>
       <Modal opened={opened2} onClose={close2} title="Authentication">
-        <EditResource id={id} oldValues={editResource} close={close2} />
+        <EditResource
+          id={id}
+          oldValues={editResource}
+          close={close2}
+          setRefresh={setRefresh}
+        />
       </Modal>
     </>
   );

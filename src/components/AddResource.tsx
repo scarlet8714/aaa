@@ -10,7 +10,13 @@ import { TimeInput } from "@mantine/dates";
 import { hasLength, useForm } from "@mantine/form";
 import { useRef } from "react";
 
-export default function AddResource({ close }: { close: () => void }) {
+export default function AddResource({
+  close,
+  setRefresh,
+}: {
+  close: () => void;
+  setRefresh: React.Dispatch<React.SetStateAction<number>>;
+}) {
   const timeRef1 = useRef<HTMLInputElement>(null);
   const timeRef2 = useRef<HTMLInputElement>(null);
   const form = useForm<any>({
@@ -71,6 +77,7 @@ export default function AddResource({ close }: { close: () => void }) {
       if (result.success) {
         alert("資源新增成功！");
         close();
+        setRefresh((state) => state + 1);
         // 可以在這裡做畫面重導向或清表單
       } else {
         alert("新增失敗：" + result.message);
